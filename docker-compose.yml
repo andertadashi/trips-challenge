@@ -57,7 +57,7 @@ services:
       - "5432:5432"
     volumes:
        - ./data/pgdata:/var/lib/postgresql/data
-       - ./data/sql:/sql
+       - ./sql:/docker-entrypoint-initdb.d/
        - ./data/files:/files
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
