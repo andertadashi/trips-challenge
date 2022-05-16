@@ -4,7 +4,7 @@
 ## Mandatory features
 
 - [x] There must be an automated process to ingest and store the data.
-- [ ] Trips with similar origin, destination, and time of day should be grouped together.
+- [X] Trips with similar origin, destination, and time of day should be grouped together.
 - [ ] Develop a way to obtain the weekly average number of trips for an area, defined by a
 bounding box (given by coordinates) or by a region.
 - [x] Develop a way to inform the user about the status of the data ingestion without using a
@@ -18,7 +18,7 @@ data by a data model. Please add proof that the solution is scalable.
 - [x] Containerize your solution.
 - [ ] Sketch up how you would set up the application using any cloud provider (AWS, Google
 Cloud, etc).
-- [ ] Include a .sql file with queries to answer these questions:
+- [X] Include a .sql file with queries to answer these questions:
     * [x] From the two most commonly appearing regions, which is the latest datasource?
     * [x] What regions has the "cheap_mobile" datasource appeared in?
 
