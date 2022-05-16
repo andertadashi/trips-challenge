@@ -4,9 +4,13 @@ import os
 import psycopg2
 from datetime import datetime
 
-POSTGRES_USER = os.getenv('POSTGRES_USER')
-POSTGRES_PASSWORD = os.getenv('POSTGRES_PASSWORD')
-POSTGRES_DB = os.getenv('POSTGRES_DB')
+print("os.environ", os.environ)
+
+POSTGRES_USER = os.getenv('POSTGRES_USER', 'jobsite')
+POSTGRES_PASSWORD = os.getenv('POSTGRES_PASSWORD', 'jobsite')
+POSTGRES_DB = os.getenv('POSTGRES_DB', 'postgres')
+
+print(f"CONNECTION POSTGRES_USER={POSTGRES_USER} POSTGRES_PASSWORD={POSTGRES_PASSWORD} POSTGRES_DB={POSTGRES_DB}")
 
 consumer = KafkaConsumer(
     'trips-topic',
@@ -18,9 +22,11 @@ consumer = KafkaConsumer(
 
 sql = """
     INSERT INTO 
-        trip(region,origin_coord,destination_coord,datetime,datasource)
-    VALUES(%s);
+        trip(region, origin_coord, destination_coord, datetime, datasource)
+    VALUES(%s, %s, %s, %s, %s);
 """
+
+print(sql)
 
 while True:
 
@@ -36,7 +42,8 @@ while True:
     cursor = conn.cursor()
     try:
         for message in consumer:
-            message = message.value.decode("utf-8")
+            message = message.value
+            # print(message)
             region,origin_coord,destination_coord,datetime_,datasource = message.split(',')
             datetime_ = datetime.fromisoformat(datetime_)
             cursor.execute(sql, (region, origin_coord, destination_coord, datetime_, datasource,))
@@ -49,3 +56,15 @@ while True:
     if conn is not None:
         conn.close()
     
+
+
+# destinations-consumer-1    | CONNECTION POSTGRES_USER=jobsite POSTGRES_PASSWORD=jobsite POSTGRES_DB=challenge
+# destinations-consumer-1    | 
+# destinations-consumer-1    |     INSERT INTO 
+# destinations-consumer-1    |         trip(region,origin_coord,destination_coord,datetime,datasource)
+# destinations-consumer-1    |     VALUES(%s);
+# destinations-consumer-1    | 
+# destinations-consumer-1    | Connecting to database
+# destinations-consumer-1    | Prague,POINT (14.4973794438195 50.00136875782316),POINT (14.43109483523328 50.04052930943246),2018-05-28 09:03:40,funny_car
+# destinations-consumer-1    | not all arguments converted during string formatting
+# destinations-consumer-1    | Close database connection
