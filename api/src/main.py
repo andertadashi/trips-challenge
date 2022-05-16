@@ -147,3 +147,10 @@ async def websocket_endpoint(websocket: WebSocket):
     except WebSocketDisconnect:
         notifier.remove(websocket)
 
+
+@app.get("/v1/weekly/avg", status_code=status.HTTP_200_OK)
+async def get(x_min, y_min, x_max, y_max):
+    sql = """ 
+        
+    """
+
