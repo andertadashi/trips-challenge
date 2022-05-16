@@ -148,9 +148,16 @@ async def websocket_endpoint(websocket: WebSocket):
         notifier.remove(websocket)
 
 
-@app.get("/v1/weekly/avg", status_code=status.HTTP_200_OK)
-async def get(x_min, y_min, x_max, y_max):
-    sql = """ 
-        
-    """
+# @app.get("/v1/weekly/avg", status_code=status.HTTP_200_OK)
+# async def get(xmin, ymin, xmax, ymax):
+#     # ST_MakeEnvelope(float xmin, float ymin, float xmax, float ymax, integer srid=unknown);
+#     sql = """ 
+#         SELECT 
+#             * 
+#         FROM 
+#             trip AS t 
+#         WHERE 
+#             ST_Contains(ST_MakeEnvelope(xmin, ymin, xmax, ymax, 4326), t.origin_coord)
+#             AND ST_Contains(ST_MakeEnvelope(xmin, ymin, xmax, ymax, 4326), t.destination_coord);
+#     """
 
