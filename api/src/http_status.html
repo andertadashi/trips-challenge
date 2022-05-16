@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>API Processing</title>
+    </head>
+    <body>
+        <h1>API Processing status:</h1>
+        <ul id='messages'>
+        </ul>
+        <script>
+            var ws = new WebSocket("ws://localhost:8000/ws");
+            ws.onmessage = function(event) {
+
+                var data = JSON.parse(event.data); 
+                // console.log(data.id);
+
+                const element = document.getElementById(data.id);
+                element?.remove();
+
+                var messages = document.getElementById('messages');
+                
+                var message = document.createElement('li');
+                message.setAttribute("id", data.id);
+                
+                var content = document.createTextNode(event.data);
+                message.appendChild(content);
+
+                messages.prepend(message);
+
+            };
+        </script>
+    </body>
+</html>

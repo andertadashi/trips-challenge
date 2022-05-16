@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# Topics
+kafka-topics -zookeeper localhost:2181 -topic trips --create partitions 10 --replication-factor 1
+kafka-topics.bat -zookeeper localhost:2181 -list
+kafka-topics.bat -zookeeper localhost:2181 -describe --topic <topic_name>
+kafka-topics.sh -zookeeper localhost:2181 -topic <topic_name> --delete
+
+
+
+# Producer
+kafka-console-producer -broker-list localhost:9092 -topic trips
+kafka-console-producer --broker-list localhost:9092 --topic <topic_name> --property parse.key=true --property key.separator=,  
+> key,value  
+> another key,another value 
+
+
+
+# Consumer
+kafka-console-consumer -bootstrap-server localhost:9092 -topic <topic_name>
+kafka-console-consumer.bat -bootstrap-server 127.0.0.1:9092 -topic myfirst -from-beginning
+kafka-console-consumer.bat --bootstrap-server 127.0.0.1:9092 --topic <topic_name> --group <group_name>
+
+
+
+# Consumer Groups
+kafka-consumer-groups.bat -bootstrap-server localhost:9092 -list
+kafka-consumer-groups.bat -bootstrap-server localhost:9092 -describe group <group_name>
+

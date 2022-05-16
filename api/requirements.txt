@@ -1,0 +1,10 @@
+uvicorn[standard]
+gunicorn
+fastapi
+python-multipart
+pandas
+jupyter
+geopandas
+folium
+websocket-client
+kafka-python
